@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ResultatSimuOverviewController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="342.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label text="Résultat de production:" />
+                  <Label fx:id="beneficeLabel" layoutX="14.0" layoutY="26.0" text="Label" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label text="Liste d'achat:" />
+                  <TableView fx:id="achatTable" layoutY="22.0" prefHeight="337.0" prefWidth="416.0">
+                    <columns>
+                      <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
+                      <TableColumn prefWidth="121.0" text="Nom" />
+                        <TableColumn fx:id="quantiteColumn" prefWidth="107.0" text="Quantite" />
+                        <TableColumn prefWidth="112.0" text="Cout" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Button fx:id="bt_save" layoutX="328.0" layoutY="354.0" mnemonicParsing="false" text="Sauvegarder" />
+      <Button fx:id="bt_retour" layoutX="506.0" layoutY="354.0" mnemonicParsing="false" text="Fermer" />
+   </children>
+</AnchorPane>
