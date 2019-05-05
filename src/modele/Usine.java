@@ -3,6 +3,9 @@ package modele;
 
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -14,8 +17,10 @@ public class Usine {
     private Stockage stockage;
     private Fichier element;
     private Fichier chaines;
+    private Fichier employes;
     private ArrayList<ChaineProduction> chaineProd;
     private ListeAchat listeAchat=new ListeAchat();
+    private ArrayList<Employes> listEmployes;
 
     public Usine(){
     }
@@ -26,11 +31,12 @@ public class Usine {
      * @param pathChaines chemin d'accès (absolu) du fichier chaine
      * @return un booleen indiquant si les fichiers ont bien été chargé
      */
-    public boolean loadFichier(String pathElements, String pathChaines){
+    public boolean loadFichier(String pathElements, String pathChaines, String pathEmployes){
         this.element=new Fichier(pathElements);
         this.chaines=new Fichier(pathChaines);
+        this.employes=new Fichier(pathEmployes);
 
-        if(!(this.element.loadData()) || !(this.chaines.loadData())){
+        if(!(this.element.loadData()) || !(this.chaines.loadData()) || !(this.employes.loadData())){
             return(false);
         }
         return false;
@@ -56,9 +62,23 @@ public class Usine {
     public void creationChaines(){
         ArrayList<ChaineProduction> chainesProd = new ArrayList<>();
         for (String[] elem : this.chaines.getData()) {
-            chainesProd.add(new ChaineProduction(elem[0], elem[1], 0, elem[2], elem[3]));
+            chainesProd.add(new ChaineProduction(elem[0], elem[1], 0, elem[2], elem[3], Integer.parseInt(elem[4]), Integer.parseInt(elem[5]), Integer.parseInt(elem[6])));
         }
         this.chaineProd = chainesProd;
+    }
+
+    public void creationEmployes(){
+        ArrayList<Employes> listEmployes = new ArrayList<>();
+        for (String[] elem : this.employes.getData()){
+            if(elem[1]=="y"){
+                listEmployes.add(new Employes(elem[0],true, Integer.parseInt(elem[2])));
+            }else{
+                listEmployes.add(new Employes(elem[0],false, Integer.parseInt(elem[2])));
+            }
+
+        }
+
+        this.listEmployes=listEmployes;
     }
 
     public Map<String, String> calculConso() {
@@ -113,6 +133,29 @@ public class Usine {
                 }
             }
         }
+
+        IntegerProperty demandeEQ= new SimpleIntegerProperty(0);
+        IntegerProperty demandeENQ=new SimpleIntegerProperty(0);
+        IntegerProperty offreEQ=new SimpleIntegerProperty(0);
+        IntegerProperty offreENQ=new SimpleIntegerProperty(0);
+
+        for (int i = 0; i < this.listEmployes.size(); i++) {
+            if (this.listEmployes.get(i).isQualifie()){
+                offreEQ.add(this.listEmployes.get(i).getNbHeure());
+            }else{
+                offreENQ.add(this.listEmployes.get(i).getNbHeure());
+            }
+        }
+
+        for (int i = 0; i < this.chaineProd.size(); i++) {
+            demandeENQ.add(this.chaineProd.get(i).getNbEmployeNonQ().multiply(this.chaineProd.get(i).getTps()).multiply(this.chaineProd.get(i).getNivActivation()));
+            demandeEQ.add(this.chaineProd.get(i).getNbEmployeQ().multiply(this.chaineProd.get(i).getTps()).multiply(this.chaineProd.get(i).getNivActivation()));
+        }
+
+        if(Boolean.parseBoolean(String.valueOf((demandeEQ.greaterThan(offreEQ)).or(demandeENQ.greaterThan(offreENQ.add(offreEQ).subtract(demandeEQ)))))){
+            chainePossible=false;
+        }
+
         return chainePossible;
     }
 
@@ -179,6 +222,10 @@ public class Usine {
 
     public ListeAchat getListeAchat() {
         return listeAchat;
+    }
+
+    public Fichier getEmployes() {
+        return employes;
     }
 
     @Override

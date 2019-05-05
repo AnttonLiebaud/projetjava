@@ -11,6 +11,9 @@ public class ChaineProduction {
     private StringProperty code;
     private StringProperty nom;
     private IntegerProperty nivActivation;
+    private IntegerProperty tps;
+    private IntegerProperty nbEmployeQ;
+    private IntegerProperty nbEmployeNonQ;
     private ArrayList<ElementsProductions> elemProd= new ArrayList<>();//0:Entree,1:Sortie
 
     public StringProperty getCode() {
@@ -29,12 +32,15 @@ public class ChaineProduction {
      * @param entree donnée de flux de l'entrée de la chaine
      * @param sortie donnée de flux de la sortie de la chaine
      */
-    public ChaineProduction(String code,String nom,int nivActivation,String entree, String sortie){
+    public ChaineProduction(String code,String nom,int nivActivation,String entree, String sortie,int tps, int nbEQ, int nbENQ){
         this.code=new SimpleStringProperty(code);
         this.nom= new SimpleStringProperty(nom);
         this.nivActivation= new SimpleIntegerProperty(nivActivation);
         this.elemProd.add(new EntreeProduction(entree));
         this.elemProd.add(new SortieProduction(sortie));
+        this.tps=new SimpleIntegerProperty(tps);
+        this.nbEmployeQ=new SimpleIntegerProperty(nbEQ);
+        this.nbEmployeNonQ=new SimpleIntegerProperty(nbENQ);
     }
 
     public ArrayList<ElementsProductions> getElemProd() {
@@ -65,5 +71,17 @@ public class ChaineProduction {
 
     public void production(String[] etatStock){
 
+    }
+
+    public IntegerProperty getTps() {
+        return tps;
+    }
+
+    public IntegerProperty getNbEmployeQ() {
+        return nbEmployeQ;
+    }
+
+    public IntegerProperty getNbEmployeNonQ() {
+        return nbEmployeNonQ;
     }
 }

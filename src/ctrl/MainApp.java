@@ -45,9 +45,10 @@ public class MainApp extends Application {
     }
 
     public void loadData(){
-        this.usine.loadFichier("/home/antton/IdeaProjects/SimulationPro/src/data/elements.csv","/home/antton/IdeaProjects/SimulationPro/src/data/chaines.csv");
+        this.usine.loadFichier("/home/cortes/IdeaProjects/projetjava/src/data/elements.csv","/home/cortes/IdeaProjects/projetjava/src/data/chaines.csv", "/home/cortes/IdeaProjects/projetjava/src/data/employes.csv");
         this.usine.creationStockage();
         this.usine.creationChaines();
+        this.usine.creationEmployes();
         ArrayList<Elements> stock = usine.getStockage().getStock();
         ArrayList<ChaineProduction> chaineProd = usine.getChaineProd();
         stockData.clear();
