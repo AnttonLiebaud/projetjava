@@ -224,6 +224,12 @@ public class Usine {
         return employes;
     }
 
+    public ArrayList<Employes> getListeEmployes(){
+        return this.listEmployes;
+    }
+
+
+
     @Override
     public String toString() {
         return this.stockage.toString();

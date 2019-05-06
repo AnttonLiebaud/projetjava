@@ -5,13 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.MenuOverviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.MenuOverviewController">
    <children>
-      <Button fx:id="bt_chaine" layoutX="376.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Chaine de productions" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="376.0" />
+      <Button fx:id="bt_chaine" layoutX="376.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Chaine de productions" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="142.0" />
       <Button fx:id="bt_simu" layoutX="376.0" layoutY="263.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Simulation" AnchorPane.leftAnchor="376.0" />
       <Button fx:id="bt_stock" layoutX="126.0" layoutY="263.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Stock" AnchorPane.leftAnchor="126.0" />
-      <Button fx:id="bt_load" layoutX="126.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Charger FIchiers" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="126.0" />
+      <Button fx:id="bt_load" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Charger FIchiers" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="26.0" />
       <Text layoutX="174.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROGRAMMATION DE LA PRODUCTION" />
       <Label fx:id="confirmeLabel" layoutX="150.0" layoutY="86.0" text="Chargement des fichiers effectué avec succès" />
+      <Button fx:id="bt_employes" layoutX="126.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Employés" />
    </children>
 </AnchorPane>

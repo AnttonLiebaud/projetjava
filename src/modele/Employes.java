@@ -22,6 +22,8 @@ public class Employes {
         return qualifie;
     }
 
+    public StringProperty getQualifie() {  StringProperty var = new SimpleStringProperty((String) ""+ qualifie); return var;}
+
     public IntegerProperty getNbHeure() {
         return nbHeure;
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class ElementsProductions {
 
-    public ArrayList<Flux> flux;//liste des elements entrants ou sortants, indice pair=code element, indice impair=quantité
+    public ArrayList<Flux> flux = new ArrayList<Flux>();//liste des elements entrants ou sortants, indice pair=code element, indice impair=quantité
 
     public ElementsProductions(String data){
         String[] temp;

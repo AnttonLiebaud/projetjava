@@ -26,6 +26,8 @@ public class MenuOverviewController implements Initializable {
     @FXML
     private Button bt_chaine;
     @FXML
+    private Button bt_employes;
+    @FXML
     private Button bt_simu;
     @FXML
     private Label confirmeLabel;
@@ -66,6 +68,15 @@ public class MenuOverviewController implements Initializable {
             public void handle(MouseEvent event) {
 
                 mainApp.showChaineOverview();
+
+            }
+        });
+
+        bt_employes.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                mainApp.showEmployeOverview();
 
             }
         });

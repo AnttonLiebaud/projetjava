@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.EmployeController">
+   <children>
+      <TableView fx:id="EmployeTable" layoutX="29.0" layoutY="14.0" prefHeight="320.0" prefWidth="600.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="codeColumn" prefWidth="146.0" text="Code" />
+          <TableColumn fx:id="qualifieColumn" prefWidth="294.0" text="Qualification" />
+            <TableColumn fx:id="heureColumn" prefWidth="159.0" text="Heures disponibles" />
+        </columns>
+      </TableView>
+      <Button fx:id="bt_retour" layoutX="487.0" layoutY="345.0" mnemonicParsing="false" text="Retour" />
+   </children>
+</AnchorPane>

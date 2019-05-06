@@ -9,10 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modele.ChaineProduction;
-import modele.Elements;
-import modele.Stockage;
-import modele.Usine;
+import modele.*;
 import vue.*;
 
 import java.io.IOException;
@@ -27,6 +24,7 @@ public class MainApp extends Application {
     private Usine usine = new Usine();
     private ObservableList<Elements> stockData = FXCollections.observableArrayList();
     private ObservableList<ChaineProduction> chaineData = FXCollections.observableArrayList();
+    private ObservableList<Employes> employeData = FXCollections.observableArrayList();
 
     public MainApp(){
         this.loadData();
@@ -45,14 +43,16 @@ public class MainApp extends Application {
     }
 
     public void loadData(){
-        this.usine.loadFichier("/home/cortes/IdeaProjects/projetjava/src/data/elements.csv","/home/cortes/IdeaProjects/projetjava/src/data/chaines.csv", "/home/cortes/IdeaProjects/projetjava/src/data/employes.csv");
+        this.usine.loadFichier("/home/antton/IdeaProjects/SimulationPro/src/data/elements.csv","/home/antton/IdeaProjects/SimulationPro/src/data/chaines.csv", "/home/antton/IdeaProjects/SimulationPro/src/data/employes.csv");
         this.usine.creationStockage();
         this.usine.creationChaines();
         this.usine.creationEmployes();
         ArrayList<Elements> stock = usine.getStockage().getStock();
         ArrayList<ChaineProduction> chaineProd = usine.getChaineProd();
+        ArrayList<Employes> employes = usine.getListeEmployes();
         stockData.clear();
         chaineData.clear();
+        employeData.clear();
 
         for (Elements e: stock) {
             stockData.add(e);
@@ -60,6 +60,10 @@ public class MainApp extends Application {
 
         for (ChaineProduction e: chaineProd) {
             chaineData.add(e);
+        }
+
+        for (Employes e: employes) {
+            employeData.add(e);
         }
     }
 
@@ -113,6 +117,23 @@ public class MainApp extends Application {
             rootLayout.setCenter(stockOverview);
 
             StockOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showEmployeOverview(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../vue/EmployeOverview.fxml"));
+            AnchorPane EmployeOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(EmployeOverview);
+
+            EmployeController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -208,5 +229,9 @@ public class MainApp extends Application {
 
     public ObservableList<ChaineProduction> getChaineData() {
         return chaineData;
+    }
+
+    public ObservableList<Employes> getEmploye() {
+        return employeData;
     }
 }

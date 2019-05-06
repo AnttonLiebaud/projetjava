@@ -1,18 +1,16 @@
 package modele;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Flux {
 
     private StringProperty codeElem;
-    private IntegerProperty quantite;
+
+    private DoubleProperty quantite;
 
     public Flux(String codeElem, String quantite){
         this.codeElem= new SimpleStringProperty(codeElem);
-        this.quantite=new SimpleIntegerProperty(Integer.valueOf(quantite));
+        this.quantite=new SimpleDoubleProperty(Double.valueOf(quantite));
     }
 
     public String getCodeElem() {
@@ -23,11 +21,14 @@ public class Flux {
         return codeElem;
     }
 
-    public int getQuantite() {
+    public double getQuantite() {
         return quantite.get();
     }
 
-    public IntegerProperty quantiteProperty() {
+    public DoubleProperty quantiteProperty() {
         return quantite;
+    }
+    public void setQuantite(double quantite) {
+        this.quantite.set(quantite);
     }
 }
