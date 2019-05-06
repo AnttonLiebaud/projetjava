@@ -11,6 +11,9 @@ public abstract class ElementsProductions {
         data=data.replaceAll("[()]",""); //regex à verifier
         data = data.replaceAll(" ", "");
         this.flux=data.split(",");
+        for (int i = 0; i < this.flux.length; i++) {
+            System.out.println(this.flux[i]);
+        }
 
     }
 
