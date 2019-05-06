@@ -3,6 +3,7 @@ package modele;
 
 
 
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -85,16 +86,13 @@ public class Usine {
         Map<String, String> dico = new HashMap<String, String>();
         for (int i = 0; i < this.chaineProd.size(); i++) {
             if (this.chaineProd.get(i).getNivActivation().getValue() > 0) {
-                for (int j = 0; j < this.chaineProd.get(i).getElemProd().get(0).flux.length; j = j + 2) {
-                    if (dico.containsKey(this.chaineProd.get(i).getElemProd().get(0).flux[j])) {
-                        double temp1 = Double.parseDouble(this.chaineProd.get(i).getElemProd().get(0).flux[j +1]);
-                        temp1 = temp1 * chaineProd.get(i).getNivActivation().getValue();
-                        double temp2 = Double.parseDouble(dico.get(this.chaineProd.get(i).getElemProd().get(0).flux[j]).toString());
-                        double temp3 = temp1 + temp2;
-                        String temp = "" + temp3;
-                        dico.replace(this.chaineProd.get(i).getElemProd().get(0).flux[j], temp);
+                for (int j = 0; j < this.chaineProd.get(i).getElemProd().get(0).flux.size(); j++) {
+                    if (dico.containsKey(this.chaineProd.get(i).getElemProd().get(0).flux.get(j))) {
+                        IntegerProperty temp=new SimpleIntegerProperty((this.chaineProd.get(i).getElemProd().get(0).flux.get(j).quantiteProperty().multiply(this.chaineProd.get(i).getNivActivation())).getValue().intValue());
+                        temp=new SimpleIntegerProperty(temp.add(Integer.parseInt(dico.get(this.chaineProd.get(i).getElemProd().get(0).flux.get(j)))).getValue());
+                        dico.replace(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getCodeElem(), String.valueOf(temp));
                     } else {
-                        dico.put(this.chaineProd.get(i).getElemProd().get(0).flux[j], this.chaineProd.get(i).getElemProd().get(0).flux[j + 1]);
+                        dico.put(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getQuantite()));
                     }
                 }
             }
@@ -163,15 +161,13 @@ public class Usine {
         Map<String, String> dico = new HashMap<String, String>();
         for (int i = 0; i < this.chaineProd.size(); i++) {
             if (this.chaineProd.get(i).getNivActivation().getValue() > 0) {
-                for (int j = 0; j < this.chaineProd.get(i).getElemProd().get(1).flux.length; j = j + 2) {
-                    if (dico.containsKey(this.chaineProd.get(i).getElemProd().get(1).flux[j])) {
-                        double temp1 = Double.parseDouble(this.chaineProd.get(i).getElemProd().get(1).flux[j +1]);
-                        double temp2 = Double.parseDouble(dico.get(this.chaineProd.get(i).getElemProd().get(1).flux[j]).toString());
-                        double temp3 = temp1 + temp2;
-                        String temp = "" + temp3;
-                        dico.replace(this.chaineProd.get(i).getElemProd().get(1).flux[j], temp);
+                for (int j = 0; j < this.chaineProd.get(i).getElemProd().get(1).flux.size(); j++) {
+                    if (dico.containsKey(this.chaineProd.get(i).getElemProd().get(1).flux.get(j))) {
+                        IntegerProperty temp=new SimpleIntegerProperty((this.chaineProd.get(i).getElemProd().get(1).flux.get(j).quantiteProperty().multiply(this.chaineProd.get(i).getNivActivation())).getValue().intValue());
+                        temp=new SimpleIntegerProperty(temp.add(Integer.parseInt(dico.get(this.chaineProd.get(i).getElemProd().get(1).flux.get(j)))).getValue());
+                        dico.replace(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getCodeElem(), String.valueOf(temp));
                     } else {
-                        dico.put(this.chaineProd.get(i).getElemProd().get(1).flux[j], this.chaineProd.get(i).getElemProd().get(1).flux[j + 1]);
+                        dico.put(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getQuantite()));
                     }
                 }
             }

@@ -5,14 +5,16 @@ import java.util.ArrayList;
 
 public abstract class ElementsProductions {
 
-    public String[] flux;//liste des elements entrants ou sortants, indice pair=code element, indice impair=quantité
+    public ArrayList<Flux> flux;//liste des elements entrants ou sortants, indice pair=code element, indice impair=quantité
 
     public ElementsProductions(String data){
+        String[] temp;
         data=data.replaceAll("[()]",""); //regex à verifier
         data = data.replaceAll(" ", "");
-        this.flux=data.split(",");
-        for (int i = 0; i < this.flux.length; i++) {
-            System.out.println(this.flux[i]);
+        temp=data.split(",");
+
+        for (int i = 0; i < temp.length; i+=2) {
+            flux.add(new Flux(temp[i],temp[i+1]));
         }
 
     }
@@ -27,9 +29,9 @@ public abstract class ElementsProductions {
     protected ArrayList<String[]> evaluation(int nivAct){
         ArrayList<String[]> production = new ArrayList<String[]>();
         String[] buffer=new String[2];
-        for (int i = 0; i < this.flux.length; i=i+2) {
-            buffer[0]=this.flux[i];
-            buffer[1]=String.valueOf(Float.parseFloat(this.flux[i+1])*nivAct);
+        for (int i = 0; i < this.flux.size(); i++) {
+            buffer[0]=this.flux.get(i).getCodeElem();
+            buffer[1]=String.valueOf(Float.parseFloat(String.valueOf(this.flux.get(i).getQuantite()))*nivAct);
             production.add(buffer);
         }
         System.out.println(production);
@@ -39,8 +41,8 @@ public abstract class ElementsProductions {
 
     public String toString() {
         String affiche = "";
-        for (int i = 0; i < this.flux.length; i++) {
-            affiche = affiche + ";" + this.flux[i];
+        for (int i = 0; i < this.flux.size(); i++) {
+            affiche = affiche + ";" + this.flux.get(i);
         }
         return affiche;
     }
