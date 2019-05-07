@@ -92,7 +92,7 @@ public class Usine {
                         temp=new SimpleIntegerProperty(temp.add(Integer.parseInt(dico.get(this.chaineProd.get(i).getElemProd().get(0).flux.get(j)))).getValue());
                         dico.replace(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getCodeElem(), String.valueOf(temp));
                     } else {
-                        dico.put(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getQuantite()));
+                        dico.put(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(0).flux.get(j).getQuantite()*this.chaineProd.get(i).getNivActivation().getValue()));
                     }
                 }
             }
@@ -125,8 +125,9 @@ public class Usine {
                         chainePossible = false;
                     }
                     else{
-                        String[] achat={stock.getStock().get(i).getCode().getValue(),String.valueOf(stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()))};
-                        this.listeAchat.setListe(achat);
+                        Achat newAchat = new Achat(stock.getStock().get(i),consomme, stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()),  stock.getStock().get(i).getCode().toString(), stock.getStock().get(i).getNom().toString());
+                        this.listeAchat.addAchat(newAchat);
+                        this.listeAchat.addCoutTotal(stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()));
                     }
                 }
             }
@@ -167,7 +168,7 @@ public class Usine {
                         temp=new SimpleIntegerProperty(temp.add(Integer.parseInt(dico.get(this.chaineProd.get(i).getElemProd().get(1).flux.get(j)))).getValue());
                         dico.replace(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getCodeElem(), String.valueOf(temp));
                     } else {
-                        dico.put(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getQuantite()));
+                        dico.put(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getCodeElem(), String.valueOf(this.chaineProd.get(i).getElemProd().get(1).flux.get(j).getQuantite()*this.chaineProd.get(i).getNivActivation().getValue()));
                     }
                 }
             }
@@ -186,24 +187,22 @@ public class Usine {
             if (this.stockage.getStock().get(i).getPrixAchat().getValue() > 0) {
                 if (conso.containsKey(this.stockage.getStock().get(i).getCode().getValue())) {
                     double consomme = Double.parseDouble(conso.get(this.stockage.getStock().get(i).getCode().getValue()));
-                    revenu += (this.stockage.getStock().get(i).getQuantite().getValue()-consomme)*this.stockage.getStock().get(i).getPrixVente().getValue();
+                    depense += consomme *this.stockage.getStock().get(i).getPrixAchat().getValue();
                 }
                 else{
-                    revenu+=this.stockage.getStock().get(i).getQuantite().getValue()*this.stockage.getStock().get(i).getPrixVente().getValue();
+                    depense+=this.stockage.getStock().get(i).getQuantite().getValue()*this.stockage.getStock().get(i).getPrixAchat().getValue();
 
                 }
             }
         }
 
-        ArrayList<String[]> listeAchat=this.listeAchat.getListe();
-        for (int i = 0; i < listeAchat.size(); i++) {
-            depense+=Double.parseDouble(listeAchat.get(i)[1]);
-        }
+        depense +=listeAchat.getCoutTotal();
 
         Map<String, String> dico = calculProduction();
         for (int i = 0; i < this.stockage.getStock().size(); i++) {
-            if(dico.containsKey(this.stockage.getStock().get(i).getCode())){
-                depense+=Double.parseDouble(dico.get(this.stockage.getStock().get(i).getCode()))*this.stockage.getStock().get(i).getPrixVente().getValue();
+            if(dico.containsKey(this.stockage.getStock().get(i).getCode().getValue()) && this.stockage.getStock().get(i).getPrixVente().getValue() >= 0){
+                double produit = Double.parseDouble(dico.get(this.stockage.getStock().get(i).getCode().getValue()));
+                revenu+=produit*this.stockage.getStock().get(i).getPrixVente().getValue();
             }
 
 

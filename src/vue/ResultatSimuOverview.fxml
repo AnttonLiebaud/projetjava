@@ -23,9 +23,9 @@
                   <TableView fx:id="achatTable" layoutY="22.0" prefHeight="337.0" prefWidth="416.0">
                     <columns>
                       <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
-                      <TableColumn prefWidth="121.0" text="Nom" />
+                      <TableColumn fx:id="nomColumn" prefWidth="121.0" text="Nom" />
                         <TableColumn fx:id="quantiteColumn" prefWidth="107.0" text="Quantite" />
-                        <TableColumn prefWidth="112.0" text="Cout" />
+                        <TableColumn fx:id="coutcolumn" prefWidth="112.0" text="Cout" />
                     </columns>
                   </TableView>
                </children>

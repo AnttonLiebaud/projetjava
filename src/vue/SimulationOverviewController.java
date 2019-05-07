@@ -101,6 +101,8 @@ public class SimulationOverviewController implements Initializable {
         bt_simulation.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                mainApp.getUsine().getListeAchat().getAchat().clear();
+                mainApp.getUsine().getListeAchat().setCoutTotal(0);
                 boolean allinit = true;
                 for(ChaineProduction c : chaineTable.getItems() ){
                     if(c.getNivActivation() != null){

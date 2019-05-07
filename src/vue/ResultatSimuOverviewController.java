@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modele.Achat;
 import modele.Elements;
 import modele.ListeAchat;
 
@@ -22,17 +23,21 @@ public class ResultatSimuOverviewController implements Initializable {
     private Stage dialogStage;
     private MainApp mainApp;
     private double benefice;
-    private ObservableList<String[]> listAchat = FXCollections.<String[]>observableArrayList();
+    private ObservableList<Achat> listAchat = FXCollections.observableArrayList();
 
     @FXML
     private Label beneficeLabel;
 
     @FXML
-    private TableView<String[]> achatTable;
+    private TableView<Achat> achatTable;
     @FXML
-    private TableColumn<String, String> codeColumn;
+    private TableColumn<Achat, String> codeColumn;
     @FXML
-    private TableColumn<String, String> quantiteColumn;
+    private TableColumn<Achat, String> nomColumn;
+    @FXML
+    private TableColumn<Achat, String> quantiteColumn;
+    @FXML
+    private TableColumn<Achat, String> coutcolumn;
     @FXML
     private Button bt_retour;
     @FXML
@@ -48,6 +53,11 @@ public class ResultatSimuOverviewController implements Initializable {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        codeColumn.setCellValueFactory(cellData -> cellData.getValue().numElementProperty());
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().nomElementProperty());
+        quantiteColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
+        coutcolumn.setCellValueFactory(cellData -> cellData.getValue().coutProperty());
+
         bt_retour.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -86,10 +96,10 @@ public class ResultatSimuOverviewController implements Initializable {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        listAchat.addAll(mainApp.getUsine().getListeAchat().getListe());
-        achatTable.setItems(listAchat);
         this.benefice = mainApp.getUsine().benefice();
         beneficeLabel.setText(benefice + " €");
+        listAchat.addAll(mainApp.getUsine().getListeAchat().getAchat());
+        achatTable.setItems(listAchat);
 
     }
 }

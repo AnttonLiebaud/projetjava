@@ -41,7 +41,7 @@ public class Elements {
     }
 
     public void setQuantite(double quantite) {
-        if(quantite>this.quantite.getValue()){
+        if(quantite<0){
             System.out.println("La quantité ne peut pas être négative!\nValeur par defaut à 0");
             this.quantite.setValue(0);
         }
