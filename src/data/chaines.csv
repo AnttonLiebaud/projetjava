@@ -1,4 +1,4 @@
-Code;Nom;Entree (code,qte);Sortie (code,qte);tps fonctionnement;Nb Employ? qualifi?;Nb employ? non qualifi?
-C001;Propulsion;(E004,1),(E002,0.5), (E003,0.1)  ;(E005,1);6;1;3
-C002;Coques;(E002, 5),(E003,1);(E006,10);4;2;2
-C003;Drones;(E005, 24),(E006,4),(E001,8);(E007,4);2;3;1
+Code;Nom;Entree (code,qte);Sortie (code,qte);tps fonctionnement;Nb Employ? qualifi?;Nb employ? non qualifi?;nivActivation
+C001;Propulsion;(E004,1),(E002,0.5), (E003,0.1)  ;(E005,1);6;1;3;14
+C002;Coques;(E002, 5),(E003,1);(E006,10);4;2;2;4
+C003;Drones;(E005, 24),(E006,4),(E001,8);(E007,4);2;3;1;1

@@ -29,6 +29,21 @@ public class ResultatSimuOverviewController implements Initializable {
     private Label beneficeLabel;
 
     @FXML
+    private Label demandeQualif;
+
+    @FXML
+    private Label demandeNonQualif;
+
+    @FXML
+    private Label offreQualifRest;
+
+    @FXML
+    private Label offreNonQualifRest;
+
+    @FXML
+    private Label coutTotalAchat;
+
+    @FXML
     private TableView<Achat> achatTable;
     @FXML
     private TableColumn<Achat, String> codeColumn;
@@ -98,6 +113,11 @@ public class ResultatSimuOverviewController implements Initializable {
         this.mainApp = mainApp;
         this.benefice = mainApp.getUsine().benefice();
         beneficeLabel.setText(benefice + " €");
+        demandeQualif.setText("Charge qualif consommée: \n" + mainApp.getUsine().getDemandeEQ()+ " H");
+        demandeNonQualif.setText("Charge non qualif consommée: \n" + mainApp.getUsine().getDemandeENQ() + " H");
+        offreQualifRest.setText("Charge restente qualif: \n" + (mainApp.getUsine().getOffreEQ() - mainApp.getUsine().getDemandeEQ())+ " H");
+        offreNonQualifRest.setText("Charge restente non qualif: \n" + (mainApp.getUsine().getOffreENQ() - mainApp.getUsine().getDemandeENQ()) + " H");
+        coutTotalAchat.setText("Valeur total d'achat: " + mainApp.getUsine().getListeAchat().getCoutTotal() + "€");
         listAchat.addAll(mainApp.getUsine().getListeAchat().getAchat());
         achatTable.setItems(listAchat);
 

@@ -22,6 +22,10 @@ public class Usine {
     private ArrayList<ChaineProduction> chaineProd;
     private ListeAchat listeAchat=new ListeAchat();
     private ArrayList<Employes> listEmployes;
+    private int demandeEQ = 0;
+    private int demandeENQ = 0;
+    private int offreEQ = 0;
+    private int offreENQ = 0;
 
     public Usine(){
     }
@@ -63,7 +67,7 @@ public class Usine {
     public void creationChaines(){
         ArrayList<ChaineProduction> chainesProd = new ArrayList<>();
         for (String[] elem : this.chaines.getData()) {
-            chainesProd.add(new ChaineProduction(elem[0], elem[1], 0, elem[2], elem[3], Integer.parseInt(elem[4]), Integer.parseInt(elem[5]), Integer.parseInt(elem[6])));
+            chainesProd.add(new ChaineProduction(elem[0], elem[1],Integer.parseInt(elem[7]), elem[2], elem[3], Integer.parseInt(elem[4]), Integer.parseInt(elem[5]), Integer.parseInt(elem[6])));
         }
         this.chaineProd = chainesProd;
     }
@@ -118,41 +122,48 @@ public class Usine {
 
         for (int i = 0; i < stock.getStock().size(); i++) {
             if (conso.containsKey(stock.getStock().get(i).getCode().getValue())) {
-                double consomme = Double.parseDouble(conso.get(stock.getStock().get(i).getCode().getValue()));
+                double consomme = Double.parseDouble(conso.get(stock.getStock().get(i).getCode().getValue()))-stock.getStock().get(i).getQuantite().getValue();
+
                 if (consomme > stock.getStock().get(i).getQuantite().getValue()) {
 
                     if (stock.getStock().get(i).getPrixAchat().getValue()<0){
                         chainePossible = false;
                     }
                     else{
-                        Achat newAchat = new Achat(stock.getStock().get(i),consomme, stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()),  stock.getStock().get(i).getCode().getValue(), stock.getStock().get(i).getNom().getValue());
+                        Achat newAchat = new Achat(stock.getStock().get(i),consomme-stock.getStock().get(i).getQuantite().getValue(), stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()),  stock.getStock().get(i).getCode().getValue(), stock.getStock().get(i).getNom().getValue());
                         this.listeAchat.addAchat(newAchat);
                         this.listeAchat.addCoutTotal(stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()));
+                        stock.getStock().get(i).setQuantite(0);
                     }
+                }
+                else {
+                    stock.getStock().get(i).setQuantite(stock.getStock().get(i).getPrixAchat().getValue() - consomme);
                 }
             }
         }
 
-        IntegerProperty demandeEQ= new SimpleIntegerProperty(0);
-        IntegerProperty demandeENQ=new SimpleIntegerProperty(0);
-        IntegerProperty offreEQ=new SimpleIntegerProperty(0);
-        IntegerProperty offreENQ=new SimpleIntegerProperty(0);
+
 
         for (int i = 0; i < this.listEmployes.size(); i++) {
             if (this.listEmployes.get(i).isQualifie()){
-                offreEQ.add(this.listEmployes.get(i).getNbHeure());
+                this.offreEQ += this.listEmployes.get(i).getNbHeure().getValue();
             }else{
-                offreENQ.add(this.listEmployes.get(i).getNbHeure());
+                this.offreENQ += this.listEmployes.get(i).getNbHeure().getValue();
             }
         }
 
         for (int i = 0; i < this.chaineProd.size(); i++) {
-            demandeENQ.add(this.chaineProd.get(i).getNbEmployeNonQ().multiply(this.chaineProd.get(i).getTps()).multiply(this.chaineProd.get(i).getNivActivation()));
-            demandeEQ.add(this.chaineProd.get(i).getNbEmployeQ().multiply(this.chaineProd.get(i).getTps()).multiply(this.chaineProd.get(i).getNivActivation()));
+            this.demandeENQ += this.chaineProd.get(i).getNbEmployeNonQ().getValue()*this.chaineProd.get(i).getTps().getValue()*this.chaineProd.get(i).getNivActivation().getValue();
+            this.demandeEQ += this.chaineProd.get(i).getNbEmployeQ().getValue()*this.chaineProd.get(i).getTps().getValue()*this.chaineProd.get(i).getNivActivation().getValue();
         }
 
-        if(Boolean.parseBoolean(String.valueOf((demandeEQ.greaterThan(offreEQ)).or(demandeENQ.greaterThan(offreENQ.add(offreEQ).subtract(demandeEQ)))))){
+        if(demandeEQ > offreEQ || demandeENQ > (offreENQ + (offreEQ - demandeEQ))){
             chainePossible=false;
+        }else{
+            if(this.demandeENQ > this.offreENQ){
+                demandeEQ += demandeENQ - offreENQ;
+                demandeENQ -= demandeENQ - offreENQ;
+            }
         }
 
         return chainePossible;
@@ -180,29 +191,12 @@ public class Usine {
     public double benefice() {
         double revenu = 0;
         double depense = 0;
-        Map<String, String> conso = new HashMap<String, String>();
-        conso = this.calculConso();
-
-        for (int i = 0; i < this.stockage.getStock().size(); i++) {
-            if (this.stockage.getStock().get(i).getPrixAchat().getValue() > 0) {
-                if (conso.containsKey(this.stockage.getStock().get(i).getCode().getValue())) {
-                    double consomme = Double.parseDouble(conso.get(this.stockage.getStock().get(i).getCode().getValue()));
-                    depense += consomme *this.stockage.getStock().get(i).getPrixAchat().getValue();
-                }
-                else{
-                    depense+=this.stockage.getStock().get(i).getQuantite().getValue()*this.stockage.getStock().get(i).getPrixAchat().getValue();
-
-                }
-            }
-        }
 
         depense +=listeAchat.getCoutTotal();
 
-        Map<String, String> dico = calculProduction();
         for (int i = 0; i < this.stockage.getStock().size(); i++) {
-            if(dico.containsKey(this.stockage.getStock().get(i).getCode().getValue()) && this.stockage.getStock().get(i).getPrixVente().getValue() >= 0){
-                double produit = Double.parseDouble(dico.get(this.stockage.getStock().get(i).getCode().getValue()));
-                revenu+=produit*this.stockage.getStock().get(i).getPrixVente().getValue();
+            if(this.stockage.getStock().get(i).getPrixVente().getValue() >= 0) {
+                revenu += this.stockage.getStock().get(i).getQuantite().getValue() * this.stockage.getStock().get(i).getPrixVente().getValue();
             }
 
 
@@ -227,7 +221,45 @@ public class Usine {
         return this.listEmployes;
     }
 
+    public ArrayList<ChaineProduction> getListeChaine() {
+        return listeChaine;
+    }
 
+    public void setListeChaine(ArrayList<ChaineProduction> listeChaine) {
+        this.listeChaine = listeChaine;
+    }
+
+    public int getDemandeEQ() {
+        return demandeEQ;
+    }
+
+    public void setDemandeEQ(int demandeEQ) {
+        this.demandeEQ = demandeEQ;
+    }
+
+    public int getDemandeENQ() {
+        return demandeENQ;
+    }
+
+    public void setDemandeENQ(int demandeENQ) {
+        this.demandeENQ = demandeENQ;
+    }
+
+    public int getOffreEQ() {
+        return offreEQ;
+    }
+
+    public void setOffreEQ(int offreEQ) {
+        this.offreEQ = offreEQ;
+    }
+
+    public int getOffreENQ() {
+        return offreENQ;
+    }
+
+    public void setOffreENQ(int offreENQ) {
+        this.offreENQ = offreENQ;
+    }
 
     @Override
     public String toString() {

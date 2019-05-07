@@ -9,25 +9,30 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ResultatSimuOverviewController">
    <children>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="342.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.4230769230769231" prefHeight="342.0" prefWidth="600.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="230.0">
                <children>
                   <Label text="Résultat de production:" />
                   <Label fx:id="beneficeLabel" layoutX="14.0" layoutY="26.0" text="Label" />
+                  <Label fx:id="demandeQualif" layoutX="14.0" layoutY="61.0" text="Label" />
+                  <Label fx:id="demandeNonQualif" layoutX="14.0" layoutY="94.0" text="Label" />
+                  <Label fx:id="offreQualifRest" layoutX="14.0" layoutY="190.0" text="Label" />
+                  <Label fx:id="offreNonQualifRest" layoutX="14.0" layoutY="223.0" text="Label" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label text="Liste d'achat:" />
-                  <TableView fx:id="achatTable" layoutY="22.0" prefHeight="337.0" prefWidth="416.0">
+                  <TableView fx:id="achatTable" layoutX="-1.0" layoutY="22.0" prefHeight="294.0" prefWidth="341.0">
                     <columns>
-                      <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
-                      <TableColumn fx:id="nomColumn" prefWidth="121.0" text="Nom" />
-                        <TableColumn fx:id="quantiteColumn" prefWidth="107.0" text="Quantite" />
-                        <TableColumn fx:id="coutcolumn" prefWidth="112.0" text="Cout" />
+                      <TableColumn fx:id="codeColumn" prefWidth="54.0" text="Code" />
+                      <TableColumn fx:id="nomColumn" prefWidth="124.0" text="Nom" />
+                        <TableColumn fx:id="quantiteColumn" prefWidth="69.0" text="Quantite" />
+                        <TableColumn fx:id="coutcolumn" prefWidth="93.0" text="Cout" />
                     </columns>
                   </TableView>
+                  <Label fx:id="coutTotalAchat" layoutX="8.0" layoutY="315.0" prefHeight="22.0" prefWidth="286.0" text="Label" />
                </children>
             </AnchorPane>
         </items>

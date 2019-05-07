@@ -103,6 +103,11 @@ public class SimulationOverviewController implements Initializable {
             public void handle(MouseEvent event) {
                 mainApp.getUsine().getListeAchat().getAchat().clear();
                 mainApp.getUsine().getListeAchat().setCoutTotal(0);
+                mainApp.getUsine().creationStockage();
+                mainApp.getUsine().setDemandeENQ(0);
+                mainApp.getUsine().setDemandeEQ(0);
+                mainApp.getUsine().setOffreENQ(0);
+                mainApp.getUsine().setOffreEQ(0);
                 boolean allinit = true;
                 for(ChaineProduction c : chaineTable.getItems() ){
                     if(c.getNivActivation() != null){
