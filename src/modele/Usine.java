@@ -71,7 +71,7 @@ public class Usine {
     public void creationEmployes(){
         ArrayList<Employes> listEmployes = new ArrayList<>();
         for (String[] elem : this.employes.getData()){
-            if(elem[1]=="y"){
+            if(elem[1].equals("y")){
                 listEmployes.add(new Employes(elem[0],true, Integer.parseInt(elem[2])));
             }else{
                 listEmployes.add(new Employes(elem[0],false, Integer.parseInt(elem[2])));
@@ -125,7 +125,7 @@ public class Usine {
                         chainePossible = false;
                     }
                     else{
-                        Achat newAchat = new Achat(stock.getStock().get(i),consomme, stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()),  stock.getStock().get(i).getCode().toString(), stock.getStock().get(i).getNom().toString());
+                        Achat newAchat = new Achat(stock.getStock().get(i),consomme, stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()),  stock.getStock().get(i).getCode().getValue(), stock.getStock().get(i).getNom().getValue());
                         this.listeAchat.addAchat(newAchat);
                         this.listeAchat.addCoutTotal(stock.getStock().get(i).getPrixAchat().getValue()*(consomme-stock.getStock().get(i).getQuantite().getValue()));
                     }

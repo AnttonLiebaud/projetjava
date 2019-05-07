@@ -24,8 +24,8 @@ import java.util.ResourceBundle;
 
 public class ChaineProdOverviewController implements Initializable {
 
-    private ObservableList<Elements> ElemEntreeData = FXCollections.observableArrayList();
-    private ObservableList<Elements> ElemSortieData = FXCollections.observableArrayList();
+    private ObservableList<Flux> ElemEntreeData = FXCollections.observableArrayList();
+    private ObservableList<Flux> ElemSortieData = FXCollections.observableArrayList();
     @FXML
     private TableView<ChaineProduction> chaineTable;
     @FXML
@@ -34,19 +34,19 @@ public class ChaineProdOverviewController implements Initializable {
     private TableColumn<ChaineProduction, String> nomColumn;
 
     @FXML
-    private TableView<Elements> ElemSortieTable;
+    private TableView<Flux> ElemSortieTable;
     @FXML
-    private TableColumn<Elements, String> codeSortieColumn;
+    private TableColumn<Flux, String> codeSortieColumn;
     @FXML
-    private  TableColumn<Number,Number> quantiteSortieColumn;
+    private  TableColumn<Flux,Number> quantiteSortieColumn;
 
 
     @FXML
-    private TableView<Elements> ElemEntreeTable;
+    private TableView<Flux> ElemEntreeTable;
     @FXML
-    private TableColumn<Elements, String> codeEntreeColumn;
+    private TableColumn<Flux, String> codeEntreeColumn;
     @FXML
-    private  TableColumn<Number,Number> quantiteEntreeColumn;
+    private  TableColumn<Flux,Number> quantiteEntreeColumn;
 
 
     @FXML
@@ -74,11 +74,11 @@ public class ChaineProdOverviewController implements Initializable {
         codeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNom());
 
-        codeEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
-        //quantiteEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
+        codeEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().codeElemProperty());
+        quantiteEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
 
-        codeSortieColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
-        //quantiteEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().getNom());
+        codeSortieColumn.setCellValueFactory(cellData -> cellData.getValue().codeElemProperty());
+        quantiteSortieColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
 
         showChaineDetails(null);
         chaineTable.getSelectionModel().selectedItemProperty().addListener(
@@ -100,40 +100,19 @@ public class ChaineProdOverviewController implements Initializable {
         ElemSortieTable.getItems().clear();
 
         ObservableList<Flux> o = FXCollections.observableArrayList();
-/*
+
         if (newChaine != null) {
-            int i = 0;
-            for(String s : newChaine.getElemProd().get(0).flux ){
-                if(i % 2 == 0){
-                    for (Elements e : mainApp.getStockData()){
-                        if(e.getCode().getValue().equals(s)){
-                            ElemEntreeData.add(e);
-                        }
-                    }
-                }else{
-
-
-                }
-                i++;
+            for(Flux s : newChaine.getElemProd().get(0).flux ){
+                ElemEntreeData.addAll(s);
             }
             ElemEntreeTable.setItems(ElemEntreeData);
-                i = 0;
-            for(String s : newChaine.getElemProd().get(1).flux ){
-                if(i % 2 == 0){
-                    for (Elements e : mainApp.getStockData()){
-                        if(e.getCode().getValue().equals(s)){
-                            ElemSortieData.add(e);
-                        }
-                    }
-                }else{
-
-                }
-                i++;
+            for(Flux s : newChaine.getElemProd().get(1).flux ){
+                            ElemSortieData.addAll(s);
             }
 
             ElemSortieTable.setItems(ElemSortieData);
 
-        }*/
+        }
 
     }
 

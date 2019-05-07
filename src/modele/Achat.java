@@ -18,8 +18,8 @@ public class Achat {
         this.element = element;
         this.quantite = new SimpleStringProperty(""+quantite);
         this.cout = new SimpleStringProperty(""+cout);
-        this.numElement = new SimpleStringProperty(""+num);
-        this.nomElement = new SimpleStringProperty(""+nom);
+        this.numElement = new SimpleStringProperty(num);
+        this.nomElement = new SimpleStringProperty(nom);
 
     }
 
