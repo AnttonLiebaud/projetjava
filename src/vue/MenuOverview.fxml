@@ -1,20 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.MenuOverviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="570.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.MenuOverviewController">
    <children>
-      <Pane prefHeight="130.0" prefWidth="600.0" style="-fx-background-color: #0CADD5;" />
-      <Button fx:id="bt_chaine" layoutX="376.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Chaine de productions" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="142.0" />
-      <Button fx:id="bt_simu" layoutX="376.0" layoutY="263.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Simulation" AnchorPane.leftAnchor="376.0" />
-      <Button fx:id="bt_stock" layoutX="126.0" layoutY="263.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Stock" AnchorPane.leftAnchor="126.0" />
-      <Button fx:id="bt_load" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Charger FIchiers" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="26.0" />
-      <Text layoutX="174.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROGRAMMATION DE LA PRODUCTION" />
-      <Label fx:id="confirmeLabel" layoutX="150.0" layoutY="86.0" text="Chargement des fichiers effectué avec succès" />
-      <Button fx:id="bt_employes" layoutX="126.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Employés" />
+      <Pane prefHeight="94.0" prefWidth="1000.0" style="-fx-background-color: #20B2AA;">
+         <children>
+            <Text fill="WHITE" layoutX="374.0" layoutY="47.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="PROGRAMMATION DE LA PRODUCTION" textOrigin="CENTER" />
+            <Label fx:id="confirmeLabel" layoutX="384.0" layoutY="89.0" />
+         </children></Pane>
+      <Pane layoutY="94.0" prefHeight="477.0" prefWidth="1000.0" style="-fx-background-color: #41D1CC;">
+         <children>
+            <Pane layoutX="600.0" layoutY="26.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: lightgrey;">
+               <children>
+                  <Text layoutX="35.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTROLER SES STOCKS">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation de la liste des employés" />
+                  <Text layoutX="14.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation des heures disponibles" />
+               </children>
+            </Pane>
+            <Pane layoutX="100.0" layoutY="245.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: lightgrey;">
+               <children>
+                  <Text layoutY="17.0" strokeType="INSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="VISUALISER LE FONCTIONNEMENT DES CHAINES DE PRODUCTION" wrappingWidth="300.00000447034836">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text layoutX="14.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation de la liste des chaines" />
+                  <Text layoutX="14.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation des produits en entrée et en sortie de chaine" wrappingWidth="239.7509765625" />
+               </children></Pane>
+            <Pane layoutX="100.0" layoutY="26.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-color: lightgrey;">
+               <children>
+                  <Text layoutX="48.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GERER SES EMPLOYÉS">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation de la liste des employés" />
+                  <Text layoutX="14.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualisation des heures disponibles" />
+               </children></Pane>
+            <Pane layoutX="600.0" layoutY="245.0" prefHeight="175.0" prefWidth="300.0" style="-fx-background-color: lightgrey;">
+               <children>
+                  <Text layoutX="-4.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIMULER L'UTILISATION DES CHAINES" textAlignment="CENTER" wrappingWidth="312.62890625">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text layoutX="14.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Choix du niveau d'activation" />
+                  <Text layoutX="13.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Prendre en compte les stocks disponibles" />
+                  <Text layoutX="13.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Optimiser l'activation de l'ensemble des chaines de production pour sa rentabilité " wrappingWidth="278.83349609375" />
+                  <Text layoutX="13.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Visualiser le bénéfice réalisé, la liste d'achat et les heures consommées" wrappingWidth="278.83349609375" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

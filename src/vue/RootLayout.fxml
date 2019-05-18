@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.RootLayoutController">
+   <top>
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Fichier">
+               <items>
+                  <MenuItem fx:id="menuMenuItem" mnemonicParsing="false" text="Retour Menu" />
+                  <MenuItem fx:id="chargerMenuItem" mnemonicParsing="false" text="Recharger fichier source" />
+                  <MenuItem fx:id="quitterMenuItem" mnemonicParsing="false" text="Quitter" />
+               </items></Menu>
+          <Menu mnemonicParsing="false" text="Employe">
+            <items>
+              <MenuItem fx:id="employeMenuItem" mnemonicParsing="false" text="Voir liste" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" onHidden="#clickableMenu" onMenuValidation="#clickableMenu" onShowing="#clickableMenu" text="Stock">
+               <items>
+                  <MenuItem fx:id="stockMenuItem" mnemonicParsing="false" text="Voir Stock actuel" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Chaine de production">
+               <items>
+                  <MenuItem fx:id="chaineMenuItem" mnemonicParsing="false" text="Voir les chaines de production" />
+               </items></Menu>
+            <Menu fx:id="simuMenuItem" mnemonicParsing="false" text="Simulation">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Paramétrer la simulation" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

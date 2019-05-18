@@ -7,27 +7,27 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ChaineProdOverviewController">
+<AnchorPane prefHeight="570.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ChaineProdOverviewController">
    <children>
-      <SplitPane dividerPositions="0.5133779264214047" prefHeight="343.0" prefWidth="600.0" AnchorPane.bottomAnchor="57.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5133779264214047" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1000.0" AnchorPane.bottomAnchor="57.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="500.0">
                <children>
-                  <TableView fx:id="chaineTable" prefHeight="343.0" prefWidth="303.0">
+                  <TableView fx:id="chaineTable" prefHeight="570.0" prefWidth="500.0">
                     <columns>
-                      <TableColumn fx:id="codeColumn" prefWidth="59.0" text="Code" />
-                      <TableColumn fx:id="nomColumn" prefWidth="127.0" text="Nom" />
+                      <TableColumn fx:id="code" prefWidth="59.0" text="Code" />
+                      <TableColumn fx:id="nom" prefWidth="127.0" text="Nom" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="500.0" prefHeight="160.0" prefWidth="500.0">
                <children>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="343.0" prefWidth="287.0">
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="343.0" prefWidth="500.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0">
                            <children>
                               <Label text="Eléments en entrée(s) :" />
-                              <TableView fx:id="ElemEntreeTable" layoutY="20.0" prefHeight="150.0" prefWidth="287.0">
+                              <TableView fx:id="ElemEntreeTable" layoutY="20.0" prefHeight="150.0" prefWidth="500.0">
                                 <columns>
                                   <TableColumn fx:id="codeEntreeColumn" prefWidth="75.0" text="Code" />
                                   <TableColumn fx:id="nomEntreeColumn" prefWidth="120.0" text="Nom" />
@@ -36,10 +36,10 @@
                               </TableView>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="500.0">
                            <children>
                               <Label text="Eléments en sortie(s) :" />
-                              <TableView fx:id="ElemSortieTable" layoutY="18.0" prefHeight="150.0" prefWidth="287.0">
+                              <TableView fx:id="ElemSortieTable" layoutY="18.0" prefHeight="150.0" prefWidth="500.0">
                                 <columns>
                                   <TableColumn fx:id="codeSortieColumn" prefWidth="75.0" text="Code" />
                                   <TableColumn fx:id="nomSortieColumn" prefWidth="118.0" text="Nom" />
@@ -50,9 +50,9 @@
                         </AnchorPane>
                     </items>
                   </SplitPane>
+                  <Button fx:id="bt_retour" layoutX="406.0" layoutY="528.0" mnemonicParsing="false" text="Retour" />
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <Button fx:id="bt_retour" layoutX="462.0" layoutY="352.0" mnemonicParsing="false" text="Retour" />
    </children>
 </AnchorPane>

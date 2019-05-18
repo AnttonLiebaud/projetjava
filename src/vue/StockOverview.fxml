@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.StockOverviewController">
+<AnchorPane prefHeight="570.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.StockOverviewController">
    <children>
-      <TableView fx:id="stockTable" layoutX="29.0" layoutY="14.0" prefHeight="320.0" prefWidth="600.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="stockTable" layoutX="29.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="1000.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
         <columns>
           <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Code" />
           <TableColumn fx:id="nomColumn" prefWidth="251.0" text="Nom" />
@@ -15,6 +15,6 @@
             <TableColumn fx:id="uniteColumn" prefWidth="154.0" text="Unité" />
         </columns>
       </TableView>
-      <Button fx:id="bt_retour" layoutX="487.0" layoutY="345.0" mnemonicParsing="false" text="Retour" />
+      <Button fx:id="bt_retour" layoutX="901.0" layoutY="516.0" mnemonicParsing="false" text="Retour" />
    </children>
 </AnchorPane>

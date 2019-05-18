@@ -6,11 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import modele.ChaineProduction;
-
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SimulationOverviewController implements Initializable {
     @FXML
@@ -27,6 +28,11 @@ public class SimulationOverviewController implements Initializable {
     private Button bt_save;
     @FXML
     private Button bt_simulation;
+    @FXML
+    private ImageView icone_warning;
+
+    @FXML
+    private Text text_alert;
 
     @FXML
     private Label codeLabel;
@@ -41,6 +47,8 @@ public class SimulationOverviewController implements Initializable {
 
     @FXML
     private TextField nivActivationTextField;
+
+    Map<String, Integer> bloquant = new HashMap<>();
 
 
 
@@ -93,6 +101,49 @@ public class SimulationOverviewController implements Initializable {
 
                     alert.showAndWait();
                 }
+                mainApp.getUsine().getListeAchat().getAchat().clear();
+                mainApp.getUsine().getListeAchat().setCoutTotal(0);
+                mainApp.getUsine().creationStockage();
+                mainApp.getUsine().setDemandeENQ(0);
+                mainApp.getUsine().setDemandeEQ(0);
+                mainApp.getUsine().setOffreENQ(0);
+                mainApp.getUsine().setOffreEQ(0);
+
+
+                if(!mainApp.getUsine().verificationChaine()){
+                    ChaineProduction selectedChaine = chaineTable.getSelectionModel().getSelectedItem();
+                    boolean newBloquant = true;
+                    for(int i = 0; i < bloquant.size(); i++){
+                        if(bloquant.containsKey(selectedChaine.getNom().getValue())){
+                            newBloquant = false;
+                        }
+                    }
+                    if(newBloquant) {
+                        bloquant.put(selectedChaine.getNom().getValue(), selectedChaine.getNivActivation().getValue());
+                    }
+                    else{
+                        bloquant.replace(selectedChaine.getNom().getValue(), selectedChaine.getNivActivation().getValue());
+                    }
+                    icone_warning.setVisible(true);
+                    text_alert.setVisible(true);
+                    text_alert.setText("ATTENTION ! Tout ou partie des ces niveaux d'activation sont bloquant !");
+                    String nom = null;
+                    int niv = 0;
+                    Iterator i = bloquant.keySet().iterator();
+
+                    while (i.hasNext()) {
+                        nom = (String) i.next();
+                        niv = (Integer) bloquant.get(nom);
+                        text_alert.setText(text_alert.getText() + "\nChaine : " + nom + " \nValeur d'activation : " + niv + "\n");
+
+
+                    }
+                }
+                else{
+                    text_alert.setVisible(false);
+                    icone_warning.setVisible(false);
+                    bloquant.clear();
+                }
 
 
             }
@@ -127,7 +178,7 @@ public class SimulationOverviewController implements Initializable {
                     alert.initOwner(mainApp.getPrimaryStage());
                     alert.setTitle("SOLUTION IMPOSSIBLE");
                     alert.setHeaderText("ERREUR");
-                    alert.setContentText("Des produits ne sont pas disponible dans le stock, ni à l'achat");
+                    alert.setContentText("Des produits ne sont pas disponible dans \n le stock, ni à l'achat");
 
                     alert.showAndWait();
 
@@ -171,7 +222,7 @@ public class SimulationOverviewController implements Initializable {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
+        chaineTable.getItems().clear();
         chaineTable.setItems(mainApp.getChaineData());
 
     }

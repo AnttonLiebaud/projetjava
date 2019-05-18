@@ -29,9 +29,9 @@ public class ChaineProdOverviewController implements Initializable {
     @FXML
     private TableView<ChaineProduction> chaineTable;
     @FXML
-    private TableColumn<ChaineProduction, String> codeColumn;
+    private TableColumn<ChaineProduction, StringProperty> code;
     @FXML
-    private TableColumn<ChaineProduction, String> nomColumn;
+    private TableColumn<ChaineProduction, StringProperty> nom;
 
     @FXML
     private TableView<Flux> ElemSortieTable;
@@ -70,9 +70,9 @@ public class ChaineProdOverviewController implements Initializable {
      */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize the person table with the two columns.
-        codeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
-        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNom());
+
+        code.setCellValueFactory((new PropertyValueFactory<>("code")));
+        nom.setCellValueFactory((new PropertyValueFactory<>("nom")));
 
         codeEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().codeElemProperty());
         quantiteEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
@@ -81,8 +81,6 @@ public class ChaineProdOverviewController implements Initializable {
         quantiteSortieColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
 
         showChaineDetails(null);
-        chaineTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showChaineDetails(newValue));
 
         bt_retour.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -125,7 +123,6 @@ public class ChaineProdOverviewController implements Initializable {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         chaineTable.getItems().clear();
-        chaineTable.setItems(mainApp.getChaineData());
-
+        chaineTable.getItems().addAll(mainApp.getUsine().getChaineProd());
     }
 }

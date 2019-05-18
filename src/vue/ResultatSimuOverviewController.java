@@ -119,6 +119,7 @@ public class ResultatSimuOverviewController implements Initializable {
         offreNonQualifRest.setText("Charge restente non qualif: \n" + (mainApp.getUsine().getOffreENQ() - mainApp.getUsine().getDemandeENQ()) + " H");
         coutTotalAchat.setText("Valeur total d'achat: " + mainApp.getUsine().getListeAchat().getCoutTotal() + "€");
         listAchat.addAll(mainApp.getUsine().getListeAchat().getAchat());
+        achatTable.getItems().clear();
         achatTable.setItems(listAchat);
 
     }

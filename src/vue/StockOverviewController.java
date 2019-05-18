@@ -77,7 +77,7 @@ public class StockOverviewController implements Initializable {
          */
         public void setMainApp(MainApp mainApp) {
             this.mainApp = mainApp;
-
+            stockTable.getItems().clear();
             stockTable.setItems(mainApp.getStockData());
 
         }
