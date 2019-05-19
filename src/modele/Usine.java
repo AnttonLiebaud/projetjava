@@ -12,6 +12,12 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Cette classe correspond à une usine.
+ * Elle est définie par un stock, le fichier des éléments, le fichier des chaînes de production, le fichier des employés, l'ensemble des chaînes de production,
+ * une liste d'achat, des employés, un nombre d'employés qualifiés nécessaires à son bon fonctionnement, un nombre d'employés non qualifiés nécessaires à son bon fonctionnement,
+ * une disponibilité d'employés qualifiés et une disponibilités d'employés non qualifiés.
+ */
 public class Usine {
 
     private ArrayList<ChaineProduction> listeChaine = new ArrayList<>();
@@ -27,14 +33,17 @@ public class Usine {
     private int offreEQ = 0;
     private int offreENQ = 0;
 
+    /**
+     * Cette méthode permet de construire une usine.
+     */
     public Usine(){
     }
 
     /**
-     * Chargement des données des fichiers csv fournis par l'utilisateur
-     * @param pathElements chemin d'accès (absolu) du fichier éléments
-     * @param pathChaines chemin d'accès (absolu) du fichier chaine
-     * @return un booleen indiquant si les fichiers ont bien été chargé
+     * Cette méthode permet le chargement des données des fichiers csv fournis par l'utilisateur.
+     * @param pathElements Correspond au chemin d'accès (absolu) du fichier éléments.
+     * @param pathChaines Correspond au chemin d'accès (absolu) du fichier chaine.
+     * @return Cette méthode renvoie un booleen indiquant si les fichiers ont bien été chargé
      */
     public boolean loadFichier(String pathElements, String pathChaines, String pathEmployes){
         this.element=new Fichier(pathElements);
@@ -47,6 +56,9 @@ public class Usine {
         return false;
     }
 
+    /**
+     * @return Cette méthode renvoie la chaîne de production.
+     */
     public ArrayList<ChaineProduction> getChaineProd(){
         return this.chaineProd;
     }
@@ -54,16 +66,31 @@ public class Usine {
     /*Gestion du stockage*/
 
     /**
-     * Création du stockage à partir du fichier csv élément
+     * Cette méthode permet la création du stockage à partir du fichier csv élément.
      */
     public void creationStockage(){
         this.stockage=new Stockage(this.element.getData());
     }
 
+    /**
+     *
+     *
+     *
+     *
+     * Utiles puisque vide?
+     *
+     *
+     *
+     *
+     *
+     */
     public void accèsDonnéeStockage(){
 
     }
 
+    /**
+     * Cette méthode permet de créer les chaînes de production.
+     */
     public void creationChaines(){
         ArrayList<ChaineProduction> chainesProd = new ArrayList<>();
         for (String[] elem : this.chaines.getData()) {
@@ -72,6 +99,9 @@ public class Usine {
         this.chaineProd = chainesProd;
     }
 
+    /**
+     * Cette méthode permet de créer les employés.
+     */
     public void creationEmployes(){
         ArrayList<Employes> listEmployes = new ArrayList<>();
         for (String[] elem : this.employes.getData()){
@@ -86,6 +116,10 @@ public class Usine {
         this.listEmployes=listEmployes;
     }
 
+    /**
+     * Cette méthode calcule la consommation des chaînes de production en fonction de leur niveau d'activation.
+     * @return Cette méthode renvoie la quantité d'éléments consommée.
+     */
     public Map<String, String> calculConso() {
         Map<String, String> dico = new HashMap<String, String>();
         for (int i = 0; i < this.chaineProd.size(); i++) {
@@ -105,6 +139,10 @@ public class Usine {
         return dico;
     }
 
+    /**
+     * Cette méthode vérifie que les chaînes de production peuvent être lancées en fonction de leur niveau d'activation et des quantités consommées.
+     * @return Cette méthode renvoie true si la chaîne est réalisable, sinon elle renvoie false.
+     */
     public boolean verificationChaine() {
         boolean chainePossible = true;
         Map<String, String> conso = new HashMap<String, String>();
@@ -169,6 +207,10 @@ public class Usine {
         return chainePossible;
     }
 
+    /**
+     * Cette méthode calcule les éléments produits par les chaînes de production en fonction de leur niveau d'activation.
+     * @return Cette méthode renvoie la liste des éléments produits avec la quantité produites correspondantes.
+     */
     public Map<String, String> calculProduction() {
         Map<String, String> dico = new HashMap<String, String>();
         for (int i = 0; i < this.chaineProd.size(); i++) {
@@ -188,6 +230,10 @@ public class Usine {
         return dico;
     }
 
+    /**
+     * Cette méthode calcule le bénéfice des chaînes de production en fonction de leur niveau d'activation.
+     * @return Cette méthode renvoie le bénéfice.
+     */
     public double benefice() {
         double revenu = 0;
         double depense = 0;
@@ -205,62 +251,112 @@ public class Usine {
 
     }
 
+    /**
+     * @return Cette méthode renvoie le stock de l'usine.
+     */
     public Stockage getStockage() {
         return stockage;
     }
 
+    /**
+     * @return Cette méthode renvoie la liste d'achat.
+     */
     public ListeAchat getListeAchat() {
         return listeAchat;
     }
 
+    /**
+     * @return Cette méthode renvoie le fichier contenant les employés.
+     */
     public Fichier getEmployes() {
         return employes;
     }
 
+    /**
+     * @return Cette méthode renvoie la liste des employés.
+     */
     public ArrayList<Employes> getListeEmployes(){
         return this.listEmployes;
     }
 
+    /**
+     * @return Cette méthode renvoie la liste des chaînes de production.
+     */
     public ArrayList<ChaineProduction> getListeChaine() {
         return listeChaine;
     }
 
+    /**
+     * Cette méthode permet de remplacer la liste des chaînes de production.
+     * @param listeChaine Correspond à la liste des chaînes de production qui doit remplacer la liste actuelle.
+     */
     public void setListeChaine(ArrayList<ChaineProduction> listeChaine) {
         this.listeChaine = listeChaine;
     }
 
+    /**
+     * @return Cette méthode renvoie le nombre d'employés qualifiés dont l'usine a besoin.
+     */
     public int getDemandeEQ() {
         return demandeEQ;
     }
 
+    /**
+     * Cette méthode permet de remplacer le nombre d'employés qualifiés dont l'usine a besoin.
+     * @param demandeEQ Correspond au nombre d'employés qualifiés qui doit remplacer l'actuel.
+     */
     public void setDemandeEQ(int demandeEQ) {
         this.demandeEQ = demandeEQ;
     }
 
+    /**
+     * @return Cette méthode renvoie le nombre d'employés non qualifiés dont l'usine a besoin.
+     */
     public int getDemandeENQ() {
         return demandeENQ;
     }
 
+    /**
+     * Cette méthode permet de remplacer le nombre d'employés non qualifiés dont l'usine a besoin.
+     * @param demandeENQ Correspond au nombre d'employés non qualifiés qui doit remplacer l'actuel.
+     */
     public void setDemandeENQ(int demandeENQ) {
         this.demandeENQ = demandeENQ;
     }
 
+    /**
+     * @return Cette méthode renvoie le nombre d'employés qualifiés disponibles.
+     */
     public int getOffreEQ() {
         return offreEQ;
     }
 
+    /**
+     * Cette méthode permet de remplacer le nombre d'employés qualifiés disponibles.
+     * @param offreEQ Correspond au nombre d'employés qualifiés disponibles qui doit remplacer l'actuel.
+     */
     public void setOffreEQ(int offreEQ) {
         this.offreEQ = offreEQ;
     }
 
+    /**
+     * @return Cette méthode renvoie le nombre d'employés non qualifiés disponibles.
+     */
     public int getOffreENQ() {
         return offreENQ;
     }
 
+    /**
+     * Cette méthode permet de remplacer le nombre d'employés non qualifiés disponibles.
+     * @param offreENQ Correspond au nombre d'employés non qualifiés disponibles qui doit remplacer l'actuel.
+     */
     public void setOffreENQ(int offreENQ) {
         this.offreENQ = offreENQ;
     }
 
+    /**
+     * @return Cette méthode renvoie les informations de l'usine mises en forme.
+     */
     @Override
     public String toString() {
         return this.stockage.toString();

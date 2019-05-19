@@ -3,10 +3,18 @@ package modele;
 import java.util.ArrayList;
 
 
+/**
+ * Cette classe correspond aux éléments de production.
+ * Ils sont définis par une liste de flux.
+ */
 public abstract class ElementsProductions {
 
     public ArrayList<Flux> flux = new ArrayList<Flux>();//liste des elements entrants ou sortants, indice pair=code element, indice impair=quantité
 
+    /**
+     * Cette méthode permet d'intégrer les données de production des fichiers dans l'application et ainsi de créer les éléments de production.
+     * @param data Correspond aux données présentes dans le fichier contenant les éléments de production.
+     */
     public ElementsProductions(String data){
         String[] temp;
         data=data.replaceAll("[()]",""); //regex à verifier
@@ -22,9 +30,9 @@ public abstract class ElementsProductions {
 
 
     /**
-     * Calcul les éléments utilisés durant la production renvoie la liste de se qui a été produit ou consommer
-     * @param nivAct niveau d'activation de la chaîne de production associé
-     * @return renvoie la liste de se qui a été produit ou consommer
+     * Cette méthode calcule les éléments utilisés durant la production.
+     * @param nivAct Correspond au niveau d'activation de la chaîne de production associée.
+     * @return Cette méthode renvoie la liste de ce qui a été produit ou consommé.
      */
     protected ArrayList<String[]> evaluation(int nivAct){
         ArrayList<String[]> production = new ArrayList<String[]>();
@@ -39,6 +47,9 @@ public abstract class ElementsProductions {
     }
 
 
+    /**
+     * @return Cette méthode renvoie les informations concernant les éléments de production mises en forme.
+     */
     public String toString() {
         String affiche = "";
         for (int i = 0; i < this.flux.size(); i++) {

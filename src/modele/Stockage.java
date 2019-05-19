@@ -2,13 +2,17 @@ package modele;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe correspond à l'état des stocks.
+ * Elle est définie par une liste d'éléments.
+ */
 public class Stockage {
 
     private ArrayList<Elements> stock= new ArrayList<>();
 
     /**
-     * Crée l'ensemble des éléments à partir des données fournies et stock dans une liste ces éléments
-     * @param anhdjt Donnée contenu le fichier csv elements. Récupérer dans la classe fichier et envoyé par Usine.
+     * Cette méthode crée l'ensemble des éléments à partir des données fournies et stock dans une liste ces éléments
+     * @param anhdjt Correspond aux données contenues dans le fichier csv elements. récupéré dans la classe Fichier et envoyé par la classe Usine.
      */
     public Stockage(ArrayList<String[]> anhdjt){
         for (String[] elem : anhdjt) {
@@ -23,13 +27,15 @@ public class Stockage {
         }
     }
 
+    /**
+     * @return Cette méthode renvoie la liste des éléments en stock.
+     */
     public ArrayList<Elements> getStock() {
         return stock;
     }
 
     /**
-     * redéfinition de toString
-     * @return les informations de l'ensemble des éléments du stock
+     * @return Cette méthode renvoie les informations de l'ensemble des éléments du stock mises en forme.
      */
     @Override
     public String toString() {
