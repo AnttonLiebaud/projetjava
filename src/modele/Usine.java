@@ -7,6 +7,10 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -32,6 +36,7 @@ public class Usine {
     private int demandeENQ = 0;
     private int offreEQ = 0;
     private int offreENQ = 0;
+    private HashMap<String, String> save=new HashMap<>();
 
     /**
      * Cette méthode permet de construire une usine.
@@ -139,6 +144,91 @@ public class Usine {
         return dico;
     }
 
+    private void calculEDT(){
+        for (int i = 0; i < this.chaineProd.size(); i++) {
+            ChaineProduction ch=this.chaineProd.get(i);
+            int nq=ch.getNbEmployeNonQ().get()*this.chaineProd.get(i).getTps().get()*this.chaineProd.get(i).getNivActivation().get();
+            int q=ch.getNbEmployeQ().get()*this.chaineProd.get(i).getTps().get()*this.chaineProd.get(i).getNivActivation().get();
+            int j=0;
+
+            while(j<this.listEmployes.size() && nq!=0){
+                Employes em=this.listEmployes.get(j);
+                if(!em.isQualifie()) {
+                    if (em.getNbHeure().getValue() - em.getWorkTime() > 0) {
+                        if (em.getNbHeure().getValue() - em.getWorkTime() > nq) {
+                            em.setWorkTime(em.getWorkTime() + nq);
+                            Double dq = Double.valueOf(nq);
+                            em.setEDT(ch.getCode().getValue(), nq);
+                        } else {
+                            em.setEDT(ch.getCode().getValue(), em.getNbHeure().getValue() - em.getWorkTime());
+                            nq -= em.getNbHeure().getValue() - em.getWorkTime();
+                            em.setWorkTime(0);
+                        }
+                    }
+                }
+                j++;
+            }
+
+            j=0;
+
+            while(j<this.listEmployes.size() && q!=0 && nq!=0){
+                Employes em=this.listEmployes.get(j);
+                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0){
+                    if(em.getNbHeure().get()-em.getWorkTime()>q){
+                        em.setWorkTime(em.getWorkTime()+q);
+                        Double dq= Double.valueOf(q);
+                        em.setEDT(ch.getCode().getValue(),q);
+                    }else{
+                        em.setEDT(ch.getCode().get(),em.getNbHeure().get()-em.getWorkTime());
+                        q-=em.getNbHeure().get()-em.getWorkTime();
+                        em.setWorkTime(0);
+                    }
+                }
+                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0){
+                    if(em.getNbHeure().get()-em.getWorkTime()>nq){
+                        em.setWorkTime(em.getWorkTime()+nq);
+                        Double dq= Double.valueOf(nq);
+                        em.setEDT(ch.getCode().getValue(),nq);
+                    }else{
+                        em.setEDT(ch.getCode().get(),em.getNbHeure().get()-em.getWorkTime());
+                        nq-=em.getNbHeure().get()-em.getWorkTime();
+                        em.setWorkTime(0);
+                    }
+                }
+                j++;
+            }
+        }
+    }
+
+    public void extrationEDT(){
+
+    }
+
+    public void extractionListeAchat(){
+        System.out.println("extraction");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File("ListeAchat.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String data="";
+
+        for (int i = 0; i < this.listeAchat.getAchat().size(); i++) {
+            Achat achat=this.listeAchat.getAchat().get(i);
+            data+=achat.getNumElement()+" "+ achat.getNomElement()+" quantité: "+achat.getQuantite()+" prix: "+achat.getCout()+"\n";
+        }
+
+        data+="Coût total: "+this.listeAchat.getCoutTotal();
+        byte[] b=data.getBytes();
+        try {
+            fos.write(b);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Cette méthode vérifie que les chaînes de production peuvent être lancées en fonction de leur niveau d'activation et des quantités consommées.
      * @return Cette méthode renvoie true si la chaîne est réalisable, sinon elle renvoie false.
@@ -202,6 +292,12 @@ public class Usine {
                 demandeEQ += demandeENQ - offreENQ;
                 demandeENQ -= demandeENQ - offreENQ;
             }
+        }
+
+        extractionListeAchat();
+
+        if(chainePossible){
+            calculEDT();
         }
 
         return chainePossible;
