@@ -47,6 +47,10 @@ public class Employes {
         return workTime;
     }
 
+    public ArrayList<String[]> getEDT() {
+        return EDT;
+    }
+
     public void setWorkTime(int workTime) {
         this.workTime.set(workTime);
     }

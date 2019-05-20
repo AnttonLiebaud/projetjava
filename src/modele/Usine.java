@@ -201,11 +201,33 @@ public class Usine {
     }
 
     public void extrationEDT(){
+        for (int i = 0; i < this.listEmployes.size(); i++) {
+            String path="EDT";
+            path=path+this.listEmployes.get(i).getCode().getValue()+".txt";
 
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(new File(path));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            String data="";
+            for (int j = 0; j < this.listEmployes.get(i).getEDT().size(); j++) {
+                data=data+"Chaine: "+this.listEmployes.get(i).getEDT().get(j)[0]+" Heure: "+this.listEmployes.get(i).getEDT().get(j)[1]+"\n";
+            }
+
+            byte[] b=data.getBytes();
+            try {
+                fos.write(b);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     public void extractionListeAchat(){
-        System.out.println("extraction");
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(new File("ListeAchat.txt"));
@@ -299,6 +321,8 @@ public class Usine {
         if(chainePossible){
             calculEDT();
         }
+
+        extrationEDT();
 
         return chainePossible;
     }
