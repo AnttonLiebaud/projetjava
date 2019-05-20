@@ -156,9 +156,10 @@ public class Usine {
                 if(!em.isQualifie()) {
                     if (em.getNbHeure().getValue() - em.getWorkTime() > 0) {
                         if (em.getNbHeure().getValue() - em.getWorkTime() > nq) {
-                            em.setWorkTime(em.getWorkTime() + nq);
+                            em.setWorkTime(em.getWorkTime() - nq);
                             Double dq = Double.valueOf(nq);
                             em.setEDT(ch.getCode().getValue(), nq);
+                            nq=0;
                         } else {
                             em.setEDT(ch.getCode().getValue(), em.getNbHeure().getValue() - em.getWorkTime());
                             nq -= em.getNbHeure().getValue() - em.getWorkTime();
@@ -171,13 +172,14 @@ public class Usine {
 
             j=0;
 
-            while(j<this.listEmployes.size() && q!=0 && nq!=0){
+            while(j<this.listEmployes.size() && (q!=0 || nq!=0)){
                 Employes em=this.listEmployes.get(j);
                 if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0){
                     if(em.getNbHeure().get()-em.getWorkTime()>q){
-                        em.setWorkTime(em.getWorkTime()+q);
+                        em.setWorkTime(em.getWorkTime()-q);
                         Double dq= Double.valueOf(q);
                         em.setEDT(ch.getCode().getValue(),q);
+                        q=0;
                     }else{
                         em.setEDT(ch.getCode().get(),em.getNbHeure().get()-em.getWorkTime());
                         q-=em.getNbHeure().get()-em.getWorkTime();
@@ -189,6 +191,7 @@ public class Usine {
                         em.setWorkTime(em.getWorkTime()+nq);
                         Double dq= Double.valueOf(nq);
                         em.setEDT(ch.getCode().getValue(),nq);
+                        nq=0;
                     }else{
                         em.setEDT(ch.getCode().get(),em.getNbHeure().get()-em.getWorkTime());
                         nq-=em.getNbHeure().get()-em.getWorkTime();
