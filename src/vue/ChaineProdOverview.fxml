@@ -15,8 +15,8 @@
                <children>
                   <TableView fx:id="chaineTable" prefHeight="570.0" prefWidth="500.0">
                     <columns>
-                      <TableColumn fx:id="code" prefWidth="59.0" text="Code" />
-                      <TableColumn fx:id="nom" prefWidth="127.0" text="Nom" />
+                      <TableColumn fx:id="codeChaineColumn" prefWidth="59.0" text="Code" />
+                      <TableColumn fx:id="nomChainColumn" prefWidth="127.0" text="Nom" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

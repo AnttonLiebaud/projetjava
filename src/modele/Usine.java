@@ -99,7 +99,7 @@ public class Usine {
     public void creationChaines(){
         ArrayList<ChaineProduction> chainesProd = new ArrayList<>();
         for (String[] elem : this.chaines.getData()) {
-            chainesProd.add(new ChaineProduction(elem[0], elem[1],Integer.parseInt(elem[7]), elem[2], elem[3], Integer.parseInt(elem[4]), Integer.parseInt(elem[5]), Integer.parseInt(elem[6])));
+            chainesProd.add(new ChaineProduction(elem[0], elem[1],0, elem[2], elem[3], Integer.parseInt(elem[4]), Integer.parseInt(elem[5]), Integer.parseInt(elem[6])));
         }
         this.chaineProd = chainesProd;
     }
@@ -174,7 +174,7 @@ public class Usine {
 
             while(j<this.listEmployes.size() && (q!=0 || nq!=0)){
                 Employes em=this.listEmployes.get(j);
-                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0){
+                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0 && q!=0){
                     if(em.getNbHeure().get()-em.getWorkTime()>q){
                         em.setWorkTime(em.getWorkTime()-q);
                         Double dq= Double.valueOf(q);
@@ -186,7 +186,7 @@ public class Usine {
                         em.setWorkTime(0);
                     }
                 }
-                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0){
+                if(em.isQualifie() && em.getNbHeure().get()-em.getWorkTime()>0 && nq != 0){
                     if(em.getNbHeure().get()-em.getWorkTime()>nq){
                         em.setWorkTime(em.getWorkTime()+nq);
                         Double dq= Double.valueOf(nq);
@@ -203,10 +203,10 @@ public class Usine {
         }
     }
 
-    public void extrationEDT(){
+    public void extrationEDT(String repertoire){
         for (int i = 0; i < this.listEmployes.size(); i++) {
             String path="EDT";
-            path=path+this.listEmployes.get(i).getCode().getValue()+".txt";
+            path=repertoire+path+this.listEmployes.get(i).getCode().getValue()+".txt";
 
             FileOutputStream fos = null;
             try {
@@ -230,10 +230,10 @@ public class Usine {
         }
     }
 
-    public void extractionListeAchat(){
+    public void extractionListeAchat(String repertoire){
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(new File("ListeAchat.txt"));
+            fos = new FileOutputStream(new File(repertoire + "ListeAchat.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -319,13 +319,10 @@ public class Usine {
             }
         }
 
-        extractionListeAchat();
 
         if(chainePossible){
             calculEDT();
         }
-
-        extrationEDT();
 
         return chainePossible;
     }

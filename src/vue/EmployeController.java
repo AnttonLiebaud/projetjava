@@ -1,7 +1,6 @@
 package vue;
 
 import ctrl.MainApp;
-import javafx.beans.property.IntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import modele.Elements;
 import modele.Employes;
 
 import java.net.URL;

@@ -13,12 +13,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/MainApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/ctrl/MainApp.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/data/chaines.csv">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/data/elements.csv">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/data/employes.csv">
           <value>
             <set />
           </value>
@@ -59,6 +79,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/vue/MenuOverviewController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/vue/ResultatSimuOverview.fxml">
           <value>
             <set />
           </value>

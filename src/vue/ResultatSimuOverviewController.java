@@ -1,7 +1,6 @@
 package vue;
 
 import ctrl.MainApp;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -9,13 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import modele.Achat;
-import modele.Elements;
-import modele.ListeAchat;
 
+import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ResultatSimuOverviewController implements Initializable {
@@ -83,13 +81,19 @@ public class ResultatSimuOverviewController implements Initializable {
         bt_save.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("Problème génération document");
-                alert.setContentText("Erreur durant la génération du document");
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("Choix du répertoire de sauvegarde");
+                directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+                File selectedDirectory = directoryChooser.showDialog(mainApp.getPrimaryStage());
 
-                alert.showAndWait();
+                if(selectedDirectory == null){
+                    //No Directory selected
+                }else{
+                    mainApp.getUsine().extractionListeAchat(selectedDirectory.getAbsolutePath()+"/");
+                    mainApp.getUsine().extrationEDT(selectedDirectory.getAbsolutePath()+"/");
+                    System.out.println("Repertoire choisi : " + selectedDirectory.getAbsolutePath()+"/");
+                }
+
             }
         });
 

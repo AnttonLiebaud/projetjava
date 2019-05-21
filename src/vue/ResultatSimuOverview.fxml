@@ -7,9 +7,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ResultatSimuOverviewController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ResultatSimuOverviewController">
    <children>
-      <SplitPane dividerPositions="0.4230769230769231" prefHeight="342.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.3246492985971944" prefHeight="600.0" prefWidth="1000.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="230.0">
                <children>
@@ -23,21 +23,30 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label text="Liste d'achat:" />
-                  <TableView fx:id="achatTable" layoutX="-1.0" layoutY="22.0" prefHeight="294.0" prefWidth="341.0">
-                    <columns>
-                      <TableColumn fx:id="codeColumn" prefWidth="54.0" text="Code" />
-                      <TableColumn fx:id="nomColumn" prefWidth="124.0" text="Nom" />
-                        <TableColumn fx:id="quantiteColumn" prefWidth="69.0" text="Quantite" />
-                        <TableColumn fx:id="coutcolumn" prefWidth="93.0" text="Cout" />
-                    </columns>
-                  </TableView>
-                  <Label fx:id="coutTotalAchat" layoutX="8.0" layoutY="315.0" prefHeight="22.0" prefWidth="286.0" text="Label" />
+                  <SplitPane dividerPositions="0.837248322147651" orientation="VERTICAL" prefHeight="598.0" prefWidth="670.0">
+                    <items>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="achatTable" layoutX="4.0" layoutY="27.0" prefHeight="410.0" prefWidth="623.0">
+                                <columns>
+                                  <TableColumn fx:id="codeColumn" prefWidth="169.0" text="Code" />
+                                  <TableColumn fx:id="nomColumn" prefWidth="173.0" text="Nom" />
+                                    <TableColumn fx:id="quantiteColumn" prefWidth="123.0" text="Quantite" />
+                                    <TableColumn fx:id="coutcolumn" prefWidth="157.0" text="Cout" />
+                                </columns>
+                              </TableView>
+                              <Label text="Liste d'achat:" />
+                              <Label fx:id="coutTotalAchat" layoutX="14.0" layoutY="446.0" prefHeight="22.0" prefWidth="238.0" text="Label" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <Button fx:id="bt_save" layoutX="328.0" layoutY="354.0" mnemonicParsing="false" text="Sauvegarder" />
-      <Button fx:id="bt_retour" layoutX="506.0" layoutY="354.0" mnemonicParsing="false" text="Fermer" />
+      <Button fx:id="bt_save" layoutX="796.0" layoutY="560.0" mnemonicParsing="false" text="Sauvegarder" />
+      <Button fx:id="bt_retour" layoutX="921.0" layoutY="560.0" mnemonicParsing="false" text="Fermer" />
    </children>
 </AnchorPane>

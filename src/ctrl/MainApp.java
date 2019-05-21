@@ -7,11 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modele.*;
 import vue.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,27 +45,39 @@ public class MainApp extends Application {
     }
 
     public void loadData(){
-        this.usine.loadFichier("/home/cortes/IdeaProjects/projetjava/src/data/elements.csv","/home/cortes/IdeaProjects/projetjava/src/data/chaines.csv", "/home/cortes/IdeaProjects/projetjava/src/data/employes.csv");
-        this.usine.creationStockage();
-        this.usine.creationChaines();
-        this.usine.creationEmployes();
-        ArrayList<Elements> stock = usine.getStockage().getStock();
-        ArrayList<ChaineProduction> chaineProd = usine.getChaineProd();
-        ArrayList<Employes> employes = usine.getListeEmployes();
-        stockData.clear();
-        chaineData.clear();
-        employeData.clear();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choix du répertoire avec les fichiers csv (element, chaines, employes)");
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File selectedDirectory = directoryChooser.showDialog(this.getPrimaryStage());
 
-        for (Elements e: stock) {
-            stockData.add(e);
-        }
+        if(selectedDirectory == null){
+            //No Directory selected
+        }else {
+            System.out.println("Repertoire choisi : " + selectedDirectory.getAbsolutePath() + "/");
 
-        for (ChaineProduction e: chaineProd) {
-            chaineData.add(e);
-        }
+            this.usine.loadFichier(selectedDirectory.getAbsolutePath() + "/elements.csv", selectedDirectory.getAbsolutePath() + "/chaines.csv", selectedDirectory.getAbsolutePath() + "/employes.csv");
 
-        for (Employes e: employes) {
-            employeData.add(e);
+            this.usine.creationStockage();
+            this.usine.creationChaines();
+            this.usine.creationEmployes();
+            ArrayList<Elements> stock = usine.getStockage().getStock();
+            ArrayList<ChaineProduction> chaineProd = usine.getChaineProd();
+            ArrayList<Employes> employes = usine.getListeEmployes();
+            stockData.clear();
+            chaineData.clear();
+            employeData.clear();
+
+            for (Elements e : stock) {
+                stockData.add(e);
+            }
+
+            for (ChaineProduction e : chaineProd) {
+                chaineData.add(e);
+            }
+
+            for (Employes e : employes) {
+                employeData.add(e);
+            }
         }
     }
 
@@ -74,7 +88,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/RootLayout.fxml"));
+            loader.setLocation(RootLayoutController.class.getResource("RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -96,7 +110,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/MenuOverview.fxml"));
+            loader.setLocation(MenuOverviewController.class.getResource("MenuOverview.fxml"));
             AnchorPane mainOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -113,7 +127,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/StockOverview.fxml"));
+            loader.setLocation(StockOverviewController.class.getResource("StockOverview.fxml"));
             AnchorPane stockOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -130,7 +144,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/EmployeOverview.fxml"));
+            loader.setLocation(EmployeController.class.getResource("EmployeOverview.fxml"));
             AnchorPane EmployeOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -147,7 +161,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/ChaineProdOverview.fxml"));
+            loader.setLocation(ChaineProdOverviewController.class.getResource("ChaineProdOverview.fxml"));
             AnchorPane chaineOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -181,7 +195,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../vue/ResultatSimuOverview.fxml"));
+            loader.setLocation(ResultatSimuOverviewController.class.getResource("ResultatSimuOverview.fxml"));
             AnchorPane ResultatSimuOverview = (AnchorPane) loader.load();
 
             // Create the dialog Stage.

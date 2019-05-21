@@ -1,7 +1,6 @@
 package vue;
 
 import ctrl.MainApp;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,17 +8,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import modele.ChaineProduction;
-import modele.Elements;
 import modele.Flux;
 
 import java.net.URL;
-import java.util.Dictionary;
 import java.util.ResourceBundle;
 
 public class ChaineProdOverviewController implements Initializable {
@@ -32,6 +27,10 @@ public class ChaineProdOverviewController implements Initializable {
     private TableColumn<ChaineProduction, StringProperty> code;
     @FXML
     private TableColumn<ChaineProduction, StringProperty> nom;
+    @FXML
+    private TableColumn<ChaineProduction, String> codeChaineColumn;
+    @FXML
+    private  TableColumn<ChaineProduction, String> nomChainColumn;
 
     @FXML
     private TableView<Flux> ElemSortieTable;
@@ -71,8 +70,11 @@ public class ChaineProdOverviewController implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
-        code.setCellValueFactory((new PropertyValueFactory<>("code")));
-        nom.setCellValueFactory((new PropertyValueFactory<>("nom")));
+        //code.setCellValueFactory((new PropertyValueFactory<>("code")));
+        //nom.setCellValueFactory((new PropertyValueFactory<>("nom")));
+
+        codeChaineColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
+        nomChainColumn.setCellValueFactory(cellDate -> cellDate.getValue().getNom());
 
         codeEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().codeElemProperty());
         quantiteEntreeColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
@@ -81,6 +83,8 @@ public class ChaineProdOverviewController implements Initializable {
         quantiteSortieColumn.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
 
         showChaineDetails(null);
+        chaineTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showChaineDetails(newValue));
 
         bt_retour.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -123,6 +127,7 @@ public class ChaineProdOverviewController implements Initializable {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         chaineTable.getItems().clear();
-        chaineTable.getItems().addAll(mainApp.getUsine().getChaineProd());
+        chaineTable.setItems(mainApp.getChaineData());
+        //chaineTable.getItems().addAll(mainApp.getUsine().getChaineProd());
     }
 }
